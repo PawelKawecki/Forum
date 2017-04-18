@@ -11,6 +11,9 @@
 |
 */
 
+//auth()->loginUsingId(5);
+//auth()->logout();
+
 Route::get('/', function () {
     return view('welcome');
 });
