@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Channel;
 use App\Thread;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
