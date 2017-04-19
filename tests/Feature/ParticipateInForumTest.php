@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
 use App\Thread;
-use App\User;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -14,9 +13,8 @@ class ParticipateInForumTest extends TestCase
 
     public function test_an_unauthenticated_user_may_not_participate_in_forum_threads()
     {
-        $this->expectException(AuthenticationException::class);
-
-        $this->post('threads/1/replies', []);
+        $this->post('threads/slug/1/replies', [])
+            ->assertRedirect('/login');
     }
 
     public function test_an_authenticated_user_may_participate_in_forum_threads()
@@ -25,11 +23,11 @@ class ParticipateInForumTest extends TestCase
 
         $thread = create(Thread::class);
 
-        $reply = make(Thread::class);
+        $reply = create(Reply::class);
 
-        $this->post("threads/$thread->id/replies", $reply->toArray());
+        $this->post("{$thread->path()}/replies", $reply->toArray());
 
-        $this->get("threads/$thread->id")->assertSee($reply->body);
+        $this->get($thread->path())->assertSee($reply->body);
     }
 
 }

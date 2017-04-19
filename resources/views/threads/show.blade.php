@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @if(auth()->check())
-                    <form action="{{ url("threads/$thread->id/replies") }}" method="POST">
+                    <form action="{{ $thread->path() . '/replies' }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">

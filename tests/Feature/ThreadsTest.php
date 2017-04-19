@@ -11,6 +11,7 @@ class ThreadsTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /** @var Thread $thread */
     protected $thread;
 
     public function setUp()
@@ -29,7 +30,7 @@ class ThreadsTest extends TestCase
 
     public function test_user_can_see_specific_thread()
     {
-        $response = $this->get("/threads/{$this->thread->id}");
+        $response = $this->get($this->thread->path());
 
         $response->assertSee($this->thread->body);
     }
@@ -38,7 +39,7 @@ class ThreadsTest extends TestCase
     {
         $reply = create(Reply::class, ['thread_id' => $this->thread->id]);
 
-        $response = $this->get("/threads/{$this->thread->id}");
+        $response = $this->get($this->thread->path());
 
         $response->assertSee($reply->body);
     }

@@ -18,8 +18,18 @@ class Thread extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
+    }
+
     public function addReply($reply)
     {
         return $this->replies()->create($reply);
+    }
+
+    public function path()
+    {
+        return "/threads/{$this->channel->slug}/{$this->id}";
     }
 }

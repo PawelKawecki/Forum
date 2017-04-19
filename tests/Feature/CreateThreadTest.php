@@ -14,27 +14,26 @@ class CreateThreadTest extends TestCase
 
     public function test_guest_can_not_create_new_thread()
     {
-        $this->expectException(AuthenticationException::class);
-
-        $this->post('threads', []);
+        $this->post('threads', [])
+            ->assertRedirect('/login');
     }
 
     public function test_quest_can_not_see_create_thread_page()
     {
-        $this->expectException(AuthenticationException::class);
-
-        $this->get('threads/create');
+        $this->get('threads/create')
+            ->assertRedirect('/login');
     }
 
     public function test_a_user_can_create_new_thread()
     {
         $this->signIn();
 
-        $thread = make(Thread::class);
+        /** @var Thread $thread */
+        $thread = create(Thread::class);
 
         $this->post('threads', $thread->toArray());
 
-        $this->get("threads/$thread->id")
+        $this->get($thread->path())
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }
