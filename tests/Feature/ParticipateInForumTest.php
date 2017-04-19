@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Reply;
 use App\Thread;
 use App\User;
 use Illuminate\Auth\AuthenticationException;
@@ -15,7 +14,6 @@ class ParticipateInForumTest extends TestCase
 
     public function test_an_unauthenticated_user_may_not_participate_in_forum_threads()
     {
-
         $this->expectException(AuthenticationException::class);
 
         $this->post('threads/1/replies', []);
@@ -23,11 +21,11 @@ class ParticipateInForumTest extends TestCase
 
     public function test_an_authenticated_user_may_participate_in_forum_threads()
     {
-        $this->be(factory(User::class)->create());
+        $this->signIn();
 
-        $thread = factory(Thread::class)->create();
+        $thread = create(Thread::class);
 
-        $reply = factory(Reply::class)->make();
+        $reply = make(Thread::class);
 
         $this->post("threads/$thread->id/replies", $reply->toArray());
 

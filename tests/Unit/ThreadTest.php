@@ -18,12 +18,11 @@ class ThreadTest extends TestCase
     {
         parent::setUp();
 
-        $this->thread = factory(Thread::class)->create();
+        $this->thread = create(Thread::class);
     }
 
     public function test_a_thread_has_replies()
     {
-
         $this->assertInstanceOf(Collection::class, $this->thread->replies);
     }
 
