@@ -16,7 +16,7 @@
                                     <div class="form-group">
                                         <select name="channel_id" class="form-control">
                                         <option value="null">Choose one...</option>
-                                            @foreach(\App\Channel::all() as $channel)
+                                            @foreach($channels as $channel)
                                                 <option value="{{ $channel->id }}" @if(old('channel_id') == $channel->id) selected @endif >{{ $channel->name }}</option>
                                             @endforeach
                                         </select>
