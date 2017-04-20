@@ -11,7 +11,7 @@
 |
 */
 
-//auth()->loginUsingId(5);
+auth()->loginUsingId(5);
 //auth()->logout();
 
 Route::get('/', function () {
